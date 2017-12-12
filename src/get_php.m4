@@ -112,6 +112,8 @@ CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmat
 CONFIGURE+=("--with-zlib" "--with-zlib-dir=$DEFAULT_PATH" "--with-bz2" "--enable-zip")
 # MySQL
 CONFIGURE+=("--with-mysqli=mysqlnd" "--with-mysql=mysqlnd" "--with-pdo-mysql=mysqlnd")
+# pgsql
+CONFIGURE+=("--with-pgsql")
 # GD
 CONFIGURE+=("--with-gd" "--enable-gd-native-ttf" "--with-jpeg-dir=$DEFAULT_PATH" "--with-png-dir=$DEFAULT_PATH" "--with-freetype-dir=$DEFAULT_PATH")
 # XML
