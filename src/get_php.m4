@@ -1,6 +1,6 @@
 changequote([","])dnl
 define(["M4_TARGET"],["get_php.sh"])dnl
-define(["M4_VERSION"],["1.73"])dnl
+define(["M4_VERSION"],["1.74"])dnl
 dnl rpm -i http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 define(["M4_YUM_PKG"],["make gcc gcc-g++ zlib-devel openssl-devel libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel gmp-devel libc-client-devel libicu-devel openldap-devel libmcrypt-devel libtidy-devel libxslt-devel git ImageMagick-devel libyaml-devel libuuid-devel libmongodb-devel"])dnl
 include(bash.m4)dnl
@@ -18,7 +18,7 @@ fi
 
 if [ x"$PHP_PECL" = x ]; then
 	# default set of PECL modules
-	PHP_PECL="imagick uuid mailparse apcu mcrypt git://github.com/MagicalTux/php-git2.git git://github.com/preillyme/v8js.git"
+	PHP_PECL="imagick uuid mailparse apcu mcrypt git://github.com/MagicalTux/php-git2.git"
 fi
 # PECL DEPENCIES
 # imagick : libmagick6-dev
@@ -219,54 +219,6 @@ for foo in $PHP_PECL; do
 				echo -n "[libgit2:"
 				./libgit2_build.sh >libgit2_build.log 2>&1
 				echo -n "ok]"
-			fi
-		fi
-		if [ "$NAME" = "v8js" ]; then
-			if [ ! -f /usr/lib/libv8.so ]; then
-				# get v8 from git (repo is huge, get ready for >100MB dl)
-				V8_GIT_URL="https://github.com/v8/v8.git" # or https://chromium.googlesource.com/v8/v8
-				echo -n "[v8:pull.."
-					if [ -d v8 ]; then
-					cd v8
-					git pull -n -q
-				else
-					git clone -q "$V8_GIT_URL"
-					cd v8
-				fi
-				# version 3.30.00 is known to work with this ext
-				if [ ! -d depot_tools ]; then
-					git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
-					# small handler for python to help point to python2.7
-					echo '#!/bin/sh' >depot_tools/python
-					echo 'if [ -x /usr/bin/python2.7 ]; then' >>depot_tools/python
-					echo '	exec /usr/bin/python2.7 "$@"' >>depot_tools/python
-					echo 'else' >>depot_tools/python
-					echo '	exec python "$@"' >>depot_tools/python
-					echo 'fi' >>depot_tools/python
-					chmod +x depot_tools/python
-				fi
-				PATH_DEPOT_TOOLS="`pwd`/depot_tools:$PATH"
-
-				echo -n "dep.."
-				# need to be one folder back for gclient config/sync
-				cd ..
-				PATH="$PATH_DEPOT_TOOLS" gclient config "$V8_GIT_URL" >v8_gclient_config.log 2>&1
-				PATH="$PATH_DEPOT_TOOLS" gclient sync >v8_gclient_sync.log 2>&1
-				cd v8
-
-				echo -n "build.."
-				PATH="$PATH_DEPOT_TOOLS" make native GYPFLAGS="-Dcomponent=shared_library -Dv8_enable_backtrace=1 -Darm_fpu=default -Darm_float_abi=default" -j"$MAKE_PROCESSES" >../v8_make.log 2>&1
-
-				echo -n "install.."
-				cp out/native/lib.target/libv8.so /usr/lib/libv8.so
-				echo -e "create /usr/lib/libv8_libplatform.a\naddlib out/native/obj.target/tools/gyp/libv8_libplatform.a\naddlib out/native/obj.target/tools/gyp/libv8_libbase.a\nsave\nend" | ar -M
-				cp include/v8* /usr/include
-				cp -r include/libplatform /usr/include
-
-				# Uninstall: rm -fr /usr/lib/libv8.so /usr/lib/libv8_libplatform.a /usr/include/v8* /usr/include/libplatform
-
-				echo -n "ok]"
-				cd ..
 			fi
 		fi
 		echo -n "[git] "
