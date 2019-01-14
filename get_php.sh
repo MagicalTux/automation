@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.76"
+SCRIPT_VERSION="1.77"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -97,7 +97,7 @@ case `uname` in
 		;;
 esac
 
-PHP_BRANCH="7.2"
+PHP_BRANCH="7"
 
 # allow override of php branch easily (TODO: make this a ini file one day)
 if [ -f php_branch.txt ]; then
@@ -106,7 +106,7 @@ fi
 
 if [ x"$PHP_PECL" = x ]; then
 	# default set of PECL modules
-	PHP_PECL="imagick uuid mailparse apcu mcrypt git://github.com/MagicalTux/php-git2.git"
+	PHP_PECL="imagick uuid https://git.php.net/repository/pecl/mail/mailparse.git apcu mcrypt git://github.com/MagicalTux/php-git2.git"
 fi
 # PECL DEPENCIES
 # imagick : libmagick6-dev
@@ -270,7 +270,7 @@ mkdir -p mod
 cd mod
 for foo in $PHP_PECL; do
 	PECL_CONFIGURE=()
-	if [ `echo "$foo" | grep -c '^git://'` = "1" ]; then
+	if [ `echo "$foo" | grep -c '\.git$'` = "1" ]; then
 		# git repo
 		NAME=`echo "$foo" | sed -e 's#.*/##;s/\.git$//'`
 		echo -n "$NAME"
