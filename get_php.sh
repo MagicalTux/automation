@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.75"
+SCRIPT_VERSION="1.76"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -97,7 +97,7 @@ case `uname` in
 		;;
 esac
 
-PHP_BRANCH="7"
+PHP_BRANCH="7.2"
 
 # allow override of php branch easily (TODO: make this a ini file one day)
 if [ -f php_branch.txt ]; then
