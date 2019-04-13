@@ -1,6 +1,6 @@
 changequote([","])dnl
 define(["M4_TARGET"],["get_php.sh"])dnl
-define(["M4_VERSION"],["1.77"])dnl
+define(["M4_VERSION"],["1.78"])dnl
 dnl rpm -i http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 define(["M4_YUM_PKG"],["make gcc gcc-g++ zlib-devel openssl-devel libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel gmp-devel libc-client-devel libicu-devel openldap-devel libmcrypt-devel libtidy-devel libxslt-devel git ImageMagick-devel libyaml-devel libuuid-devel libmongodb-devel"])dnl
 include(bash.m4)dnl
@@ -33,7 +33,7 @@ fi
 echo "$PHP_CUR_VERSION"
 
 echo -n "Checking for last version of PHP $PHP_BRANCH: "
-PHP_VERSION=`curl -s http://php.net/downloads.php | grep "PHP $PHP_BRANCH\." | grep -v headsup | head -n 1 | $SED -r -e 's/^.*PHP +//;s/<.*>//;s/ +//g;s/\(.*\)//'`
+PHP_VERSION=`curl -s https://www.php.net/downloads.php | grep "PHP $PHP_BRANCH\." | grep -v headsup | head -n 1 | $SED -r -e 's/^.*PHP +//;s/<.*>//;s/ +//g;s/\(.*\)//'`
 echo "$PHP_VERSION"
 
 if [ x"$PHP_CUR_VERSION" = x"$PHP_VERSION" ]; then
@@ -46,8 +46,6 @@ if [ x"$PHP_CUR_VERSION" = x"$PHP_VERSION" ]; then
 fi
 
 PHP_FILE="php-$PHP_VERSION.tar.bz2"
-PHP_SUHOSIN_FILE="suhosin-patch-$PHP_VERSION-0.9.7.patch.gz"
-PHP_MAIL_PATCH_FILE="php-mail-header.patch"
 PHP_DIR="php-web-$PHP_VERSION"
 
 
@@ -76,12 +74,6 @@ if [ ! -d "$PHP_DIR" ]; then
 	mv "php-$PHP_VERSION" "$PHP_DIR"
 	echo "done"
 	cd "$PHP_DIR"
-#	echo -n "Applying SUHOSIN patch..."
-#	cat "../$PHP_SUHOSIN_FILE" | gunzip | patch -p1 -s
-#	echo "done"
-#	echo -n "Applying mail patch..."
-#	cat "../$PHP_MAIL_PATCH_FILE" | patch -p1 -s
-#	echo "done"
 else
 	cd "$PHP_DIR"
 fi

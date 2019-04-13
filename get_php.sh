@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.77"
+SCRIPT_VERSION="1.78"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -121,7 +121,7 @@ fi
 echo "$PHP_CUR_VERSION"
 
 echo -n "Checking for last version of PHP $PHP_BRANCH: "
-PHP_VERSION=`curl -s http://php.net/downloads.php | grep "PHP $PHP_BRANCH\." | grep -v headsup | head -n 1 | $SED -r -e 's/^.*PHP +//;s/<.*>//;s/ +//g;s/\(.*\)//'`
+PHP_VERSION=`curl -s https://www.php.net/downloads.php | grep "PHP $PHP_BRANCH\." | grep -v headsup | head -n 1 | $SED -r -e 's/^.*PHP +//;s/<.*>//;s/ +//g;s/\(.*\)//'`
 echo "$PHP_VERSION"
 
 if [ x"$PHP_CUR_VERSION" = x"$PHP_VERSION" ]; then
@@ -134,8 +134,6 @@ if [ x"$PHP_CUR_VERSION" = x"$PHP_VERSION" ]; then
 fi
 
 PHP_FILE="php-$PHP_VERSION.tar.bz2"
-PHP_SUHOSIN_FILE="suhosin-patch-$PHP_VERSION-0.9.7.patch.gz"
-PHP_MAIL_PATCH_FILE="php-mail-header.patch"
 PHP_DIR="php-web-$PHP_VERSION"
 
 
@@ -164,12 +162,6 @@ if [ ! -d "$PHP_DIR" ]; then
 	mv "php-$PHP_VERSION" "$PHP_DIR"
 	echo "done"
 	cd "$PHP_DIR"
-#	echo -n "Applying SUHOSIN patch..."
-#	cat "../$PHP_SUHOSIN_FILE" | gunzip | patch -p1 -s
-#	echo "done"
-#	echo -n "Applying mail patch..."
-#	cat "../$PHP_MAIL_PATCH_FILE" | patch -p1 -s
-#	echo "done"
 else
 	cd "$PHP_DIR"
 fi
