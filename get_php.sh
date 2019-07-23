@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.78"
+SCRIPT_VERSION="1.79"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -187,7 +187,7 @@ CONFIGURE+=("--with-iconv" "--with-iconv-dir" "--enable-mbstring")
 # libintl (ICU)
 CONFIGURE+=("--enable-intl" "--with-icu-dir=$DEFAULT_PATH")
 # features
-CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmath" "--with-gettext")
+CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmath" "--with-gettext" "--with-password-argon2=$DEFAULT_PATH")
 # compression
 CONFIGURE+=("--with-zlib" "--with-zlib-dir=$DEFAULT_PATH" "--with-bz2" "--enable-zip")
 # MySQL

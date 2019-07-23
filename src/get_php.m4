@@ -1,6 +1,6 @@
 changequote([","])dnl
 define(["M4_TARGET"],["get_php.sh"])dnl
-define(["M4_VERSION"],["1.78"])dnl
+define(["M4_VERSION"],["1.79"])dnl
 dnl rpm -i http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 define(["M4_YUM_PKG"],["make gcc gcc-g++ zlib-devel openssl-devel libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel gmp-devel libc-client-devel libicu-devel openldap-devel libmcrypt-devel libtidy-devel libxslt-devel git ImageMagick-devel libyaml-devel libuuid-devel libmongodb-devel"])dnl
 include(bash.m4)dnl
@@ -99,7 +99,7 @@ CONFIGURE+=("--with-iconv" "--with-iconv-dir" "--enable-mbstring")
 # libintl (ICU)
 CONFIGURE+=("--enable-intl" "--with-icu-dir=$DEFAULT_PATH")
 # features
-CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmath" "--with-gettext")
+CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmath" "--with-gettext" "--with-password-argon2=$DEFAULT_PATH")
 # compression
 CONFIGURE+=("--with-zlib" "--with-zlib-dir=$DEFAULT_PATH" "--with-bz2" "--enable-zip")
 # MySQL
