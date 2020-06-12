@@ -189,7 +189,7 @@ CONFIGURE+=("--enable-intl" "--with-icu-dir=$DEFAULT_PATH")
 # features
 CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmath" "--with-gettext" "--with-password-argon2=$DEFAULT_PATH")
 # compression
-CONFIGURE+=("--with-zlib" "--with-zlib-dir=$DEFAULT_PATH" "--with-bz2" "--enable-zip")
+CONFIGURE+=("--with-zlib" "--with-zlib-dir=$DEFAULT_PATH" "--with-bz2" "--with-zip")
 # MySQL
 CONFIGURE+=("--with-mysqli=mysqlnd" "--with-mysql=mysqlnd" "--with-pdo-mysql=mysqlnd")
 # GD
