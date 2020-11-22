@@ -8,7 +8,12 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libcurl4-openssl-dev libicu-dev build-essential uuid-dev libbz2-dev libc-client2007e-dev libexif-dev libgmp-dev libgraphicsmagick1-dev libgraphviz-dev libmemcached-dev libssh2-1-dev libmcrypt-dev libtidy-dev libxslt-dev libkrb5-dev libyaml-dev libzip-dev libhttp-parser-dev autoconf autoconf2.13 poppler-utils libargon2-0-dev libdjvulibre-dev libfreetype6-dev libjpeg-dev liblcms2-dev liblqr-1-0-dev libltdl-dev libopenexr-dev libpng-dev librsvg2-dev libtiff-dev libwmf-dev libxml2-dev zlib1g-dev libde265-dev libheif-dev libraw-dev liblqr-1-0-dev libdjvulibre-dev libopenexr-dev xfonts-base xfonts-75dpi fonts-takao xvfb memcached nginx postfix ntp git subversion cmake sox libsox-fmt-base libsox-fmt-mp3 faad modplug-tools gnash poppler-utils ufraw ffmpeg libsqlite3-dev libonig-dev
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget curl crudini rsync
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget curl crudini rsync zip jq
+
+# remove ubuntu crap
+RUN systemctl mask apt-daily.service apt-daily-upgrade.service
+RUN echo 'APT::Periodic::Enable "0";' > /etc/apt/apt.conf.d/10cloudinit-disable
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y purge update-notifier-common ubuntu-release-upgrader-core landscape-common unattended-upgrades
 
 # fix imagick & gmp
 #RUN sed -i -r 's/<(.*rights="none".*)>/<!--\1-->/' /etc/ImageMagick-6/policy.xml
