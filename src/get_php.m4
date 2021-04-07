@@ -9,7 +9,7 @@ include(apache.m4)dnl
 include(php.m4)dnl
 include(os.m4)dnl
 
-PHP_BRANCH="7"
+PHP_BRANCH="8"
 
 # allow override of php branch easily (TODO: make this a ini file one day)
 if [ -f php_branch.txt ]; then
@@ -18,7 +18,7 @@ fi
 
 if [ x"$PHP_PECL" = x ]; then
 	# default set of PECL modules
-	PHP_PECL="imagick uuid https://git.php.net/repository/pecl/mail/mailparse.git apcu mcrypt git://github.com/MagicalTux/php-git2.git"
+	PHP_PECL="imagick uuid git://github.com/php/pecl-mail-mailparse.git apcu mcrypt git://github.com/MagicalTux/php-git2.git"
 fi
 # PECL DEPENCIES
 # imagick : libmagick6-dev
