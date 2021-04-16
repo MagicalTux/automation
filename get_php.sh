@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.80"
+SCRIPT_VERSION="1.81"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -106,7 +106,7 @@ fi
 
 if [ x"$PHP_PECL" = x ]; then
 	# default set of PECL modules
-	PHP_PECL="git://github.com/Imagick/imagick.git uuid git://github.com/php/pecl-mail-mailparse.git apcu mcrypt git://github.com/MagicalTux/php-git2.git"
+	PHP_PECL="git://github.com/Imagick/imagick.git uuid git://github.com/php/pecl-mail-mailparse.git apcu mcrypt"
 fi
 # PECL DEPENCIES
 # imagick : libmagick6-dev
@@ -272,32 +272,6 @@ for foo in $PHP_PECL; do
 		else
 			git clone -q "$foo" "$NAME"
 			cd "$NAME"
-		fi
-		if [ "$NAME" = "php-git" ]; then
-			echo -n "[libgit2:"
-			if [ ! -d libgit2/build ]; then
-				git submodule init -q
-				git submodule update -q
-				mkdir libgit2/build
-				cd libgit2/build
-				cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DBUILD_CLAR=OFF -DCMAKE_C_FLAGS=-fPIC -DUSE_SSH=ON .. >../../libgit2_cmake_init.log 2>&1
-				cmake --build . >../../libgit2_cmake_compile.log 2>&1
-				cd ../..
-			elif [ ! -f libgit2/build/libgit2.a ]; then
-				# erased by make clean
-				cd libgit2/build
-				cmake --build . >../../libgit2_cmake_compile.log 2>&1
-				cd ../..
-			fi
-			echo -n "ok]"
-			PECL_CONFIGURE+=("--enable-git2-debug")
-		fi
-		if [ "$NAME" = "php-git2" ]; then
-			if [ ! -f libgit2/build/libgit2.a ]; then
-				echo -n "[libgit2:"
-				./libgit2_build.sh >libgit2_build.log 2>&1
-				echo -n "ok]"
-			fi
 		fi
 		echo -n "[git] "
 		"${PHP_PREFIX}/bin/phpize" >phpize.log 2>&1 || ( echo -n "[fail] " && continue )

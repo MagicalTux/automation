@@ -1,6 +1,6 @@
 changequote([","])dnl
 define(["M4_TARGET"],["get_php.sh"])dnl
-define(["M4_VERSION"],["1.80"])dnl
+define(["M4_VERSION"],["1.81"])dnl
 dnl rpm -i http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 define(["M4_YUM_PKG"],["make gcc gcc-g++ zlib-devel openssl-devel libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel gmp-devel libc-client-devel libicu-devel openldap-devel libmcrypt-devel libtidy-devel libxslt-devel git ImageMagick-devel libyaml-devel libuuid-devel libmongodb-devel"])dnl
 include(bash.m4)dnl
@@ -18,7 +18,7 @@ fi
 
 if [ x"$PHP_PECL" = x ]; then
 	# default set of PECL modules
-	PHP_PECL="git://github.com/Imagick/imagick.git uuid git://github.com/php/pecl-mail-mailparse.git apcu mcrypt git://github.com/MagicalTux/php-git2.git"
+	PHP_PECL="git://github.com/Imagick/imagick.git uuid git://github.com/php/pecl-mail-mailparse.git apcu mcrypt"
 fi
 # PECL DEPENCIES
 # imagick : libmagick6-dev
@@ -184,32 +184,6 @@ for foo in $PHP_PECL; do
 		else
 			git clone -q "$foo" "$NAME"
 			cd "$NAME"
-		fi
-		if [ "$NAME" = "php-git" ]; then
-			echo -n "[libgit2:"
-			if [ ! -d libgit2/build ]; then
-				git submodule init -q
-				git submodule update -q
-				mkdir libgit2/build
-				cd libgit2/build
-				cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DBUILD_CLAR=OFF -DCMAKE_C_FLAGS=-fPIC -DUSE_SSH=ON .. >../../libgit2_cmake_init.log 2>&1
-				cmake --build . >../../libgit2_cmake_compile.log 2>&1
-				cd ../..
-			elif [ ! -f libgit2/build/libgit2.a ]; then
-				# erased by make clean
-				cd libgit2/build
-				cmake --build . >../../libgit2_cmake_compile.log 2>&1
-				cd ../..
-			fi
-			echo -n "ok]"
-			PECL_CONFIGURE+=("--enable-git2-debug")
-		fi
-		if [ "$NAME" = "php-git2" ]; then
-			if [ ! -f libgit2/build/libgit2.a ]; then
-				echo -n "[libgit2:"
-				./libgit2_build.sh >libgit2_build.log 2>&1
-				echo -n "ok]"
-			fi
 		fi
 		echo -n "[git] "
 		"${PHP_PREFIX}/bin/phpize" >phpize.log 2>&1 || ( echo -n "[fail] " && continue )
