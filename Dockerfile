@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:experimental
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # install base packages
 RUN apt-get update
