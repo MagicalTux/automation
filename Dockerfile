@@ -25,7 +25,7 @@ WORKDIR /usr/src
 RUN --mount=type=tmpfs,target=/usr/src wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_amd64.deb && dpkg -i wkhtmltox_0.12.6-1.bionic_amd64.deb
 
 # get imagick
-RUN --mount=type=tmpfs,target=/usr/src wget https://github.com/ImageMagick/ImageMagick/archive/7.0.8-23.tar.gz -O ImageMagick.tar.gz && tar xzf ImageMagick.tar.gz && cd ImageMagick-7* && ./configure --prefix=/usr --with-rsvg=yes && make && make install
+RUN --mount=type=tmpfs,target=/usr/src wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.0.11-6.tar.gz -O ImageMagick.tar.gz && tar xzf ImageMagick.tar.gz && cd ImageMagick-7* && ./configure --prefix=/usr --with-rsvg=yes && make && make install
 
 # get PHP (docker will fork the cache if get_php.sh is updated)
 RUN --mount=type=tmpfs,target=/usr/src wget https://raw.githubusercontent.com/MagicalTux/automation/master/get_php.sh && chmod +x get_php.sh && ./get_php.sh

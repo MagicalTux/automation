@@ -9,3 +9,6 @@ These scripts are used internally by MagicalTux.
 	chmod +x get_apache.sh
 	./get_apache.sh
 
+## docker
+
+	DOCKER_BUILDKIT=1 docker build -t phpbase .
