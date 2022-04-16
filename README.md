@@ -11,4 +11,5 @@ These scripts are used internally by MagicalTux.
 
 ## docker
 
-	DOCKER_BUILDKIT=1 docker build -t phpbase .
+	DOCKER_BUILDKIT=1 docker build -t karpeleslab/phpbase .
+	docker push karpeleslab/phpbase
