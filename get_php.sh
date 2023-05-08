@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.82"
+SCRIPT_VERSION="1.83"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -197,7 +197,7 @@ CONFIGURE+=("--enable-gd" "--enable-gd-native-ttf" "--with-jpeg-dir=$DEFAULT_PAT
 # XML
 CONFIGURE+=("--enable-wddx" "--with-xmlrpc" "--with-xsl" "--with-tidy" "--enable-soap")
 # OpenSSL
-CONFIGURE+=("--with-openssl" "--with-mhash" "--with-mcrypt" "--with-gmp=$DEFAULT_PATH")
+CONFIGURE+=("--with-openssl" "--with-mhash" "--with-mcrypt" "--with-gmp=$DEFAULT_PATH" "--with-sodium")
 # Network
 CONFIGURE+=("--enable-sockets" "--enable-ftp" "--with-curl=$DEFAULT_PATH" "--with-imap" "--with-imap-ssl")
 # Basic stuff
