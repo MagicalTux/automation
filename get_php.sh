@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.83"
+SCRIPT_VERSION="1.84"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -106,7 +106,7 @@ fi
 
 if [ x"$PHP_PECL" = x ]; then
 	# default set of PECL modules
-	PHP_PECL="https://github.com/Imagick/imagick.git uuid https://github.com/php/pecl-mail-mailparse.git apcu mcrypt"
+	PHP_PECL="https://github.com/Imagick/imagick.git uuid https://github.com/php/pecl-mail-mailparse.git apcu"
 fi
 # PECL DEPENCIES
 # imagick : libmagick6-dev
@@ -197,7 +197,7 @@ CONFIGURE+=("--enable-gd" "--enable-gd-native-ttf" "--with-jpeg-dir=$DEFAULT_PAT
 # XML
 CONFIGURE+=("--enable-wddx" "--with-xmlrpc" "--with-xsl" "--with-tidy" "--enable-soap")
 # OpenSSL
-CONFIGURE+=("--with-openssl" "--with-mhash" "--with-mcrypt" "--with-gmp=$DEFAULT_PATH" "--with-sodium")
+CONFIGURE+=("--with-openssl" "--with-mhash" "--with-gmp=$DEFAULT_PATH" "--with-sodium")
 # Network
 CONFIGURE+=("--enable-sockets" "--enable-ftp" "--with-curl=$DEFAULT_PATH" "--with-imap" "--with-imap-ssl")
 # Basic stuff
