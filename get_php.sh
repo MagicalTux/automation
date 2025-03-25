@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.84"
+SCRIPT_VERSION="1.85"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -121,7 +121,7 @@ fi
 echo "$PHP_CUR_VERSION"
 
 echo -n "Checking for last version of PHP $PHP_BRANCH: "
-PHP_VERSION=`curl -s https://www.php.net/downloads.php | grep "PHP $PHP_BRANCH\." | grep -v headsup | head -n 1 | $SED -r -e 's/^.*PHP +//;s/<.*>//;s/ +//g;s/\(.*\)//'`
+PHP_VERSION=`curl -s https://www.php.net/downloads.php | grep "PHP $PHP_BRANCH\." | grep -v logo | head -n 1 | $SED -r -e 's/^.*PHP +//;s/<.*>//;s/ +//g;s/\(.*\)//'`
 echo "$PHP_VERSION"
 
 if [ x"$PHP_CUR_VERSION" = x"$PHP_VERSION" ]; then
