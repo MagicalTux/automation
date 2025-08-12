@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.85"
+SCRIPT_VERSION="1.86"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -192,6 +192,8 @@ CONFIGURE+=("--enable-calendar" "--enable-exif" "--enable-pcntl" "--enable-bcmat
 CONFIGURE+=("--with-zlib" "--with-zlib-dir=$DEFAULT_PATH" "--with-bz2" "--with-zip")
 # MySQL
 CONFIGURE+=("--with-mysqli=mysqlnd" "--with-mysql=mysqlnd" "--with-pdo-mysql=mysqlnd")
+# PGSQL
+CONFIGURE+=("--with-pgsql" "--with-pdo-pgsql")
 # GD
 CONFIGURE+=("--enable-gd" "--enable-gd-native-ttf" "--with-jpeg-dir=$DEFAULT_PATH" "--with-png-dir=$DEFAULT_PATH" "--with-freetype-dir=$DEFAULT_PATH")
 # XML
