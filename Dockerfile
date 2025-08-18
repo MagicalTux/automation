@@ -21,7 +21,7 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 WORKDIR /usr/src
 
 # get imagick
-RUN --mount=type=tmpfs,target=/usr/src wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.0.11-6.tar.gz -O ImageMagick.tar.gz && tar xzf ImageMagick.tar.gz && cd ImageMagick-7* && ./configure --prefix=/usr --with-rsvg=yes && make && make install
+RUN --mount=type=tmpfs,target=/usr/src wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.2-1.tar.gz -O ImageMagick.tar.gz && tar xzf ImageMagick.tar.gz && cd ImageMagick-7* && ./configure --prefix=/usr --with-rsvg=yes && make && make install
 
 # get PHP (docker will fork the cache if get_php.sh is updated)
 RUN --mount=type=tmpfs,target=/usr/src wget https://raw.githubusercontent.com/MagicalTux/automation/master/get_php.sh && /bin/bash ./get_php.sh
