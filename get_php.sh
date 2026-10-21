@@ -10,7 +10,7 @@ if [ `echo -n | grep -c -- -n` -gt 0 ]; then
 fi
 
 OPTS="$@"
-SCRIPT_VERSION="1.88"
+SCRIPT_VERSION="1.89"
 
 SCRIPT_FORCE_REINSTALL=0
 SCRIPT_FORCE_UPDATE=0
@@ -139,8 +139,7 @@ PHP_DIR="php-web-$PHP_VERSION"
 
 if [ ! -f "$PHP_FILE" ]; then
 	echo -n "Downloading PHP $PHP_VERSION..."
-	# from/this/mirror allows autodetection to give us closest mirror
-	wget --timeout=300 -q -O "$PHP_FILE" "http://php.net/get/$PHP_FILE/from/this/mirror"
+	wget --timeout=300 -q -O "$PHP_FILE" "https://www.php.net/distributions/$PHP_FILE"
 
 	if [ $? != "0" ]; then
 		echo "Could not download $PHP_FILE"

@@ -1,6 +1,6 @@
 changequote([","])dnl
 define(["M4_TARGET"],["get_php.sh"])dnl
-define(["M4_VERSION"],["1.88"])dnl
+define(["M4_VERSION"],["1.89"])dnl
 dnl rpm -i http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 define(["M4_YUM_PKG"],["make gcc gcc-g++ zlib-devel openssl-devel libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel gmp-devel libc-client-devel libicu-devel openldap-devel libtidy-devel libxslt-devel git ImageMagick-devel libyaml-devel libuuid-devel libmongodb-devel"])dnl
 include(bash.m4)dnl
@@ -51,8 +51,7 @@ PHP_DIR="php-web-$PHP_VERSION"
 
 if [ ! -f "$PHP_FILE" ]; then
 	echo -n "Downloading PHP $PHP_VERSION..."
-	# from/this/mirror allows autodetection to give us closest mirror
-	wget --timeout=300 -q -O "$PHP_FILE" "http://php.net/get/$PHP_FILE/from/this/mirror"
+	wget --timeout=300 -q -O "$PHP_FILE" "https://www.php.net/distributions/$PHP_FILE"
 
 	if [ $? != "0" ]; then
 		echo "Could not download $PHP_FILE"
